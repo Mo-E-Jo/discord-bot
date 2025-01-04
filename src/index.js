@@ -11,6 +11,7 @@ const {
   EmbedBuilder,
   ActivityType,
 } = require("discord.js");
+const eventHandler = require("./handlers/eventHandler");
 
 // defining the bot and which intents it will have access to
 const client = new Client({
@@ -22,49 +23,7 @@ const client = new Client({
   ],
 });
 
-// listens to the event of the bot being online and ready to use
-client.on("ready", (bot) => {
-  console.log(`🤖 Bot: ${bot.user.username} is online`);
-
-  bot.user.setActivity({
-    name: "Battling Anxiety",
-    type: ActivityType.Streaming,
-    url: "https://www.youtube.com/watch?v=OqxHy8sCtvA",
-  });
-});
-
-// client.on("interactionCreate", (interaction) => {
-//   if (!interaction.isChatInputCommand()) return;
-
-//   if (interaction.commandName === "embed") {
-//     const embed = new EmbedBuilder()
-//       .setTitle("Orgo")
-//       .setDescription("Goblin Monster")
-//       .setColor("Random")
-//       .addFields(
-//         { name: "Weak to", value: "Fire 🔥", inline: true },
-//         { name: "Resistant against", value: "Ice 🧊", inline: true }
-//       );
-
-//     interaction.reply({ embeds: [embed] });
-//   }
-// });
-
-// client.on("messageCreate", (message) => {
-//   if (message.author.bot) return;
-
-//   if (message.content === "embed") {
-//     const embed = new EmbedBuilder()
-//       .setTitle("Orgo")
-//       .setDescription("Goblin Monster")
-//       .setColor("Random")
-//       .addFields(
-//         { name: "Weak to", value: "Fire 🔥", inline: true },
-//         { name: "Resistant against", value: "Ice 🧊", inline: true }
-//       );
-
-//     message.channel.send({ embeds: [embed] });
-//   }
-// });
+// handles event listeners
+eventHandler(client);
 
 client.login(process.env.TOKEN);
